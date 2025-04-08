@@ -8,12 +8,26 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+	"database/sql"
+	_ "github.com/lib/pq" // PostgreSQL driver
 )
 
 func main() {
 	fmt.Println("Starting MultyLink API server...")
 
-	// TODO: Initialize database connection
+	// Initialize database connection
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	if err != nil {
+		log.Fatalf("Unable to connect to database: %v", err)
+	}
+	defer db.Close()
+
+	// Test the database connection
+	if err := db.Ping(); err != nil {
+		log.Fatalf("Unable to ping database: %v", err)
+	}
+	log.Println("Successfully connected to database")
+
 	// TODO: Initialize router
 	// TODO: Initialize services
 
