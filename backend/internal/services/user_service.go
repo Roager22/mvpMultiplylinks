@@ -1,79 +1,31 @@
 package services
 
-import (
-	"database/sql"
-	"errors"
-
-	"mvp_multylink/backend/internal/models"
-	"mvp_multylink/backend/internal/repository"
-)
-
-// UserService предоставляет методы для работы с пользователями
 type UserService struct {
-	userRepo repository.UserRepository
+	// Здесь будут зависимости репозитория
 }
 
-// NewUserService создает новый экземпляр UserService
-func NewUserService(userRepo repository.UserRepository) *UserService {
-	return &UserService{
-		userRepo: userRepo,
-	}
+func NewUserService() *UserService {
+	return &UserService{}
 }
 
-// CreateUser создает нового пользователя
-func (s *UserService) CreateUser(user models.User) (int64, error) {
-	return s.userRepo.CreateUser(user)
+func (s *UserService) GetAllUsers() ([]User, error) {
+	// TODO: реализовать получение всех пользователей
+	return nil, nil
 }
 
-// GetUserByID получает пользователя по ID
-func (s *UserService) GetUserByID(id int64) (models.User, error) {
-	return s.userRepo.GetUserByID(id)
+func (s *UserService) CreateUser(user User) error {
+	// TODO: реализовать создание пользователя
+	return nil
 }
 
-// GetUserByEmail получает пользователя по email
-func (s *UserService) GetUserByEmail(email string) (models.User, error) {
-	return s.userRepo.GetUserByEmail(email)
+func (s *UserService) GetUserByID(id string) (*User, error) {
+	// TODO: реализовать получение пользователя по ID
+	return nil, nil
 }
 
-// GetUserByUsername получает пользователя по имени пользователя
-func (s *UserService) GetUserByUsername(username string) (models.User, error) {
-	return s.userRepo.GetUserByUsername(username)
-}
-
-// UpdateUser обновляет данные пользователя
-func (s *UserService) UpdateUser(user models.User) error {
-	return s.userRepo.UpdateUser(user)
-}
-
-// CheckUserExists проверяет существование пользователя с указанным email или username
-func (s *UserService) CheckUserExists(email, username string) (bool, error) {
-	// Проверка по email
-	_, err := s.userRepo.GetUserByEmail(email)
-	if err == nil {
-		return true, nil
-	}
-	if !errors.Is(err, sql.ErrNoRows) {
-		return false, err
-	}
-
-	// Проверка по username
-	_, err = s.userRepo.GetUserByUsername(username)
-	if err == nil {
-		return true, nil
-	}
-	if !errors.Is(err, sql.ErrNoRows) {
-		return false, err
-	}
-
-	return false, nil
-}
-
-// GetUserProfile получает профиль пользователя
-func (s *UserService) GetUserProfile(username string) (models.UserProfile, error) {
-	return s.userRepo.GetUserProfile(username)
-}
-
-// UpdateUserProfile обновляет профиль пользователя
-func (s *UserService) UpdateProfile(user models.User) error {
-	return s.userRepo.UpdateProfile(user)
+type User struct {
+	ID       string `json:"id"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }

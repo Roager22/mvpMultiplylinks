@@ -1,31 +1,31 @@
 package repository
 
-import (
-	"mvp_multylink/backend/internal/models"
-)
+type UserRepository struct {
+	// Здесь будет подключение к базе данных
+}
 
-// UserRepository определяет интерфейс для работы с пользователями в базе данных
-type UserRepository interface {
-	// CreateUser создает нового пользователя и возвращает его ID
-	CreateUser(user models.User) (int64, error)
+func NewUserRepository() *UserRepository {
+	return &UserRepository{}
+}
 
-	// GetUserByID получает пользователя по ID
-	GetUserByID(id int64) (models.User, error)
+func (r *UserRepository) FindAll() ([]User, error) {
+	// TODO: реализовать запрос к базе данных
+	return nil, nil
+}
 
-	// GetUserByEmail получает пользователя по email
-	GetUserByEmail(email string) (models.User, error)
+func (r *UserRepository) Create(user User) error {
+	// TODO: реализовать создание записи в базе данных
+	return nil
+}
 
-	// GetUserByUsername получает пользователя по имени пользователя
-	GetUserByUsername(username string) (models.User, error)
+func (r *UserRepository) FindByID(id string) (*User, error) {
+	// TODO: реализовать поиск по ID
+	return nil, nil
+}
 
-	// UpdateUser обновляет данные пользователя
-	UpdateUser(user models.User) error
-
-	// GetUserProfile получает профиль пользователя
-	GetUserProfile(username string) (models.UserProfile, error)
-
-	// UpdateUserProfile обновляет профиль пользователя
-	UpdateUserProfile(username string, profile models.UserProfile) error
-
-    UpdateProfile(user models.User) error
+type User struct {
+	ID       string `json:"id"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
