@@ -119,54 +119,6 @@ func (h *AuthHandler) GetCurrentUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-// UpdateCurrentUser обновляет основные данные пользователя
-func (h *AuthHandler) UpdateCurrentUser(c *gin.Context) {
-	userID, exists := c.Get("userID")
-	if !exists {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Требуется авторизация"})
-		return
-	}
-
-	var updateData models.UpdateUserRequest
-	if err := c.ShouldBindJSON(&updateData); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	// Обновление данных пользователя
-	err := h.userService.UpdateUser(userID.(int64), updateData)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при обновлении данных пользователя"})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"message": "Данные пользователя успешно обновлены"})
-}
-
-// UpdateUserProfile обновляет профиль пользователя
-func (h *AuthHandler) UpdateUserProfile(c *gin.Context) {
-	userID, exists := c.Get("userID")
-	if !exists {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Требуется авторизация"})
-		return
-	}
-
-	var profileData models.UpdateProfileRequest
-	if err := c.ShouldBindJSON(&profileData); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	// Обновление профиля пользователя
-	err := h.userService.UpdateProfile(userID.(int64), profileData)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Ошибка при обновлении профиля пользователя"})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"message": "Профиль пользователя успешно обновлен"})
-}
-
 func (h *AuthHandler) Login(c *gin.Context) {
 	var req models.LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

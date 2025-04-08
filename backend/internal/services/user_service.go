@@ -41,8 +41,8 @@ func (s *UserService) GetUserByUsername(username string) (models.User, error) {
 }
 
 // UpdateUser обновляет данные пользователя
-func (s *UserService) UpdateUser(id int64, updateData models.UpdateUserRequest) error {
-	return s.userRepo.UpdateUser(id, updateData)
+func (s *UserService) UpdateUser(user models.User) error {
+	return s.userRepo.UpdateUser(user)
 }
 
 // CheckUserExists проверяет существование пользователя с указанным email или username
@@ -74,6 +74,6 @@ func (s *UserService) GetUserProfile(username string) (models.UserProfile, error
 }
 
 // UpdateUserProfile обновляет профиль пользователя
-func (s *UserService) UpdateProfile(id int64, profileData models.UpdateProfileRequest) error {
-	return s.userRepo.UpdateProfile(id, profileData)
+func (s *UserService) UpdateProfile(user models.User) error {
+	return s.userRepo.UpdateProfile(user)
 }

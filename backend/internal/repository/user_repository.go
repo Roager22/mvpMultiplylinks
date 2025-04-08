@@ -26,4 +26,6 @@ type UserRepository interface {
 
 	// UpdateUserProfile обновляет профиль пользователя
 	UpdateUserProfile(username string, profile models.UserProfile) error
+
+    UpdateProfile(user models.User) error
 }

@@ -35,8 +35,7 @@ func SetupRouter(authHandler *handlers.AuthHandler, multiLinkHandler *handlers.M
 			protectedUsers.Use(authMiddleware.AuthRequired())
 			{
 				protectedUsers.GET("/me", authHandler.GetCurrentUser)
-				protectedUsers.PUT("/me", authHandler.UpdateCurrentUser)
-				protectedUsers.PUT("/me/profile", authHandler.UpdateUserProfile)
+
 			}
 		}
 
